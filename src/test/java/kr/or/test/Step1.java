@@ -43,7 +43,7 @@ public class Step1 {
 	private static void printMember(String[] names, int[] ages, String[] phoneNums) {
 		// for 반복문으로 3명를 한번에 출력
 		int dataLength = names.length;
-		for(int i=0;i<dataLength;i++) {
+		for(int i=0;i<dataLength;i++) { //고전적 반복문(for)
 			System.out.println("입력하신 회원의 이름은 "+names[i]+"님, 나이는 "+ages[i]+", 폰번호는"+phoneNums[i]);
 		}
 	}
