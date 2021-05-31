@@ -1,4 +1,45 @@
-### 20210527(목)작업예정
+#### 20210531(월) 작업
+- RDBMS : RelationDataBaseManagementSystem(관계형데이타베이스 관리시스템)
+-오라클: 테이블스페이스(TableSpace) = 스키마(Scheme:Mysql) = 데이터베이스(DB-MSSQL)
+- 지난주 금요일 오라클 웹용 관리프로그램에서 XE라는 테이블스페이스를 XE사용자로 추가했음
+- EntitRelationDiagram (ERD-객체관계그림): Entity=테이블
+- 데이터 모델: Model Object를 형상화 시킨것을 모델이라고 함 데이터베이스를 말함
+- MVC 스프링프로젝트에서 M이 Model이고 스프링프로젝트 구성중에 DB를 가리킴
+- 참고로 V는 View고 jsp를 말합니다
+- 참고로 C는 Controller고 클래스를 말합니다
+- 설치시 암호는 apmsetup로 통일합니다
+- 4장 패키지와 예외처리 실습
+- 스프링프로젝트 ERD 제작 후 게시판UI디자인 적용.
+
+#### 20210528(금) 작업.
+- 추상클래스 실습은 오늘, 인터페이스 실습은 스프링에 엄청하시게 됩니다.
+- extends관계클래스에서 this.(현재클래스) , super.(부모클래스)
+- 다형성? 메서드 @오버라이드(상속), 메서드 오버로드(동일함수명의 파라미터의 개수, 종류틀린메서드) 구현됩니다.
+- 오버라이드: 상속받아서 재정의 메서드 @오버라이드 = 다형성구현했다.
+- 오라클11g ExpressEditon 설치예정. OracleXE112_Win64.zip
+- SQL디벨러퍼를 다운받아서 압축풉니다. - ERD제작할 예정.
+- StructuredQueryLanguage: 구조화된 질의 언어(오라클서버) -> 답변
+- QueryString: URL에서 전송하는 값(서버에 질의문)을 문장으로 저장한내용 ?로 시작.
+- CommendLineInterface : SQL*Plus 터미널화면으로 SQL쿼리 실행 X
+- GrapicUserInter: SQL디벨러퍼 윈도우화면 에디터에서 SQL쿼리 실행 O
+- SQL Developer 프로그램으로 ERD 다이어그램그림으로 프로그젝트 구조제작예정.
+- EntityRelationDiagram: 테이블관계도형(아래) 
+- 프로젝트 진행: 발주(클라이언트) -> 수주(개발사) -> 디자인UI(Client-Dev) -> ERD(이사,팀장) -> 코딩시작(ERD보면서+UI소스에 프로그램입히기)
+- ERD에서 SQL쿼리가 생성 -> 물리테이블을 생성.
+- -------------------------------------------------
+- 첨부파일(자식)->게시판테이블(부모)<-댓글테이블(자식)
+- 자바앱에서는 객체를 생성후 사용이 끝나면, 메모리에서 삭제하는 명령이 필수.
+- 객체를 메모리에서 삭제: Object = null; Object.close();
+- 스프링에서는 내장된 가비지컬렉터(garbage쓰레기수집가)가 자동실행 사용하지 않는 객체를 자동으로 지워줌.
+- 위와 같이 개발자가 하던 메모리관리를 스프링의 대신 = IoC(Inversion Of Control)제어의 역전. 스프링 특징3가지(IoC, AOP, DI)
+- 수업시작전, static메서드와 객체의 멤버매서드 비교설명
+- Step2클래스에서 MeberService 클래스에 직접접근해서 메서드를 실행하려면 static으로 변경(컴파일시 실행가능한 상태로됨=메모리에 로딩)해야 함. 
+대신, memberServie객체을 이용해서 메서드에 접근할때는 (호출시=런타임시 실행이가능한 상태로됨=메모리에 로딩)
+- 클래스와 상속에 대해서 이론 및 실습
+- https://github.com/miniplugin/spring5-kimilguk/blob/master/src/test/java/kr/or/test/ClassApp.java
+
+
+### 20210527(목)작업
 -3장 객체와 클래스부터 시작
 -스프링에서는 클래스 extends(상속)보다는 인터페이스(implements)를 더 많이 사용합니다
 -abstract클래스(추상클래스): 구현내용이없이 메서드명만 있는 클래스
