@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML5실습</title>
+       
+    <!-- HTML5레이아웃 구조에 사용된 태그
+    header, nav, section, article, aside, footer
+    -->
+    <style>
+        /* css: cascade style sheet 계층형 스타일 표 */
+        header, nav, aside, section, footer{
+            border: 1px dotted black;
+        }
+        header > h1, footer > h1 {text-align: center;}
+        nav { display: block;height: 60px;}
+        nav > ul > li{
+            float: left; margin-right: 20px;
+        }
+        div#contents { vertical-align: middle;}
+        div.contents {
+            /* 내부의 컨텐츠 기준되는 외부 요소에 관계형 포지션 
+            추가 */
+            position: relative;
+            overflow: hidden;
+        }
+
+        section { width: 79%; display: inline-block; }
+        section > article {margin: 10px 30px;
+        border: 1px solid skyblue;}
+        aside { width: 20%; display: inline-block;
+        height: 100%;
+        right: 0px;
+        position: absolute;}
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Header</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#">menu1</a></li>
+            <li><a href="#">menu2</a></li>
+            <li><a href="#">menu3</a></li>
+        </ul>
+    </nav>
+    <div class="contents">
+    <section>
+        <h1>section</h1>
+        <article>
+            <h1>artticle1</h1>
+        </article>
+        <article>
+            <h1>artticle2</h1>
+        </article>
+        <article>
+            <h1>artticle3</h1>
+        </article>
+    </section>
+    <aside>
+        <h1>aside</h1>
+    </aside>
+    </div>
+
+    <footer>
+        <h1>footer</h1>
+    </footer>
+    <style>
+    table, tr, th, td {
+        border: 1px solid black;
+        font-size: 12px;
+    }
+    /* style의 주석 ctrl+/키 조합 */
+    /* 태이블태그의 테두리 이중선 1개선을 병합 */
+     table{
+         border-collapse: collapse;
+     }
+
+    </style>
+    <!-- 테이블 태그 제어:셀병합
+    table, tr(table row줄),(table date칸)
+    -->
+    <table>
+        <tr>
+            <th>순번</th>
+            <th>책이름</th>
+            <th>가격</th>
+            <th>판매량</th>
+            <th>판매액</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>HTML</td>
+            <td>7,000</td>
+            <td rowspan="2">1,000</td>
+            <!-- rowspan 세로칸 병합 -->
+            <td>7,000,000</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>JS</td>
+            <td>7,000</td>
+            <!-- <td>1,000</td> -->
+            <td>7,000,000</td>
+        </tr>
+        <td colspan="4">합계</td>
+        <!-- colspan 가로칸 병합 -->
+        <td>14,000,000</td>
+    </table>
+    <!--html5 폼 태그 사용 엘리먼트 form태그,input태그 -->
+    <!-- 액션=데이터자료전송(메서드:방법),radio(file),submit -->
+    <form action="html5.html">
+        <input type="text" name="text" id="">
+        <input type="password" name="password" id="">
+        <input type="date" name="date" id="">
+        <input type="range" name="range" id="">
+        <input type="color" name="color" id="">
+        <input type="radio" name="radio" id="">
+        <input type="radio" name="radio" id="">
+        <input type="checkbox" name="checkbox1" id="">
+        <input type="checkbox" name="checkbox2" id="">
+        <input type="file" name="file" id="">
+        <input type="file" name="file" id="">
+        <textarea name="textarea" id="" cols="30" rows="10"></textarea>
+        <input type="button" value="버튼">
+        <input type="reset" value="입력취소">
+        <input type="submit" value="써밋">
+
+    </form>
+    <!-- 유튜브 동영상 집어넣기 -->
+    <iframe width="100%" height="300" src="https://www.youtube.com/embed/NVzV6A0Xfes" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    
+    <!--  컨텐츠 경로. 은 현재폴더의 상대경로, 절대경로 -->
+    <img style="width: 100%;" src="img/sea.jpg" alt="액박일때 표시할 내용이 여기에">
+    <img style="width: 100%;" src="/test/img/sea.jpg" alt="액박일때 표시할 내용이 여기에">
+    <!-- 영역지정 div : division ,가상링크 #으로생성 -->
+    <div style="background-color: rgb(111, 138, 189);">
+        <a href="#">네이버</a>
+        <a href="#">다음</a>
+        <a href="#">네이트</a>
+    </div>
+    <!-- 리스트형 2가지:ol(Ordered List 정렬된 리스트), ul(Unordered List비정령) -->
+    <ol type="A">
+        <li>헬로 html</li>
+        <li>헬로 html</li>
+        <li>헬로 html</li>
+    </ol>
+    <ul>
+        <li>헬로html</li>
+        <li>헬로html</li>
+        <li>헬로html</li>
+    </ul>
+    <!-- H20, X2 아래첨자,윗첨자로 보이게 -->
+    <p>H<sub>2</sub>0</p>
+    <p>X<sup>2</sup>4</p>
+    <!-- 로렘 입숨(립숨)은 작업공간에 채울내용을 자동으로 생성해 주는기능 -->
+    <table></table>
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Possimus optio quibusdam illo. Ratione autem, exercitationem minus suscipit magnam labore, dicta quasi, fugit accusamus quibusdam totam! Quibusdam sit enim perferendis repellendus.</p>
+    <!-- html:5콜론, ;세미콜론 -->
+    <!-- h=헤더태그약자  [h${내용}*원하는개수] -->
+    <!-- p태그는 문단의 약자(paragraph) -->
+    <!-- 줄바꿈이 이루어지는 영역태그를 블럭영역 -->
+    <!-- 줄바꿈이 이루어지지 않는 영역은 인라인블럭영역=span -->
+    <!-- 도메인(사람이확인)  == IP주소(컴퓨터시스템) -->
+    <!-- 매칭(묶어줌) = 바인딩(묶어줌) -->
+    <!-- 사람색상(color) :red, blue, skyblue, black -->
+    <!-- 컴퓨터색상(color) #ff0000: #=16진수 -->
+    <!-- ff(red)00(green)00(blue)빛색상 -->
+    <!-- 예 흰색:#ffffff = #fff =  white = 함수rgb(255,255,255)-->
+    <!-- 물감은 더하면 검은색 빛은 더하면 흰색 -->
+    <!-- 16진수: 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f= 총16개 -->
+<h1 style="color: #174247;">헬로 html</h1>
+<h2>헬로 html</h2>
+<hr>
+<br>
+<br>
+<span>헬로 html5</span>
+<h3>헬로 html</h3>
+<h4>헬로 html</h4>
+<h5>헬로 html</h5>
+<h6>헬로 html</h6>
+</body>
+</html>
