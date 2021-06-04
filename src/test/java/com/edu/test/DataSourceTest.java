@@ -46,19 +46,22 @@ public class DataSourceTest {
 		//stmt객체가 없으면 개발자가SQL인젝션 방지코딩을 넣어야 합니다
 		//insert쿼리문장만듬(아래)
 		//예전 방식으로 더미데이터(샘플데이터)를 100개를 입력합니다
-		for(int cnt=0;cnt<100;cnt++) {//errror deptno 자리수가 2자리로 고정이 되어서 100는 입력시 에러
-			stmt.executeQuery("insert into dept02 values("+cnt+",'디자인부','경기도')");
-		}
+		/*
+		 * for(int cnt=0;cnt<100;cnt++) {//errror deptno 자리수가 2자리로 고정이 되어서 100는 입력시 에러
+		 * stmt.executeQuery("insert into dept02 values("+cnt+",'디자인부','경기도')"); }
+		 */
 		//인서트 업데이트 삭제시sql디벨러퍼에서는 커밋이 필수지만, 외부java클래스에서는 자동커밋이 됩니다
 		//stmt.executeQuery("insert into dept02 values(20,'디자인부','경기도')");
 		//테이블에 입력되어 있는 레코드셋를 select 쿼리stmt문장으로 가져옴(아래)
-		ResultSet rs = stmt.executeQuery("select * from dept02 order by deptno"); //20년전 작업방식
+		ResultSet rs = stmt.executeQuery("select * from dept order by deptno"); //20년전 작업방식
 		//위에서 저장된 rs객체를 반복문으로 출력합니다(아래)
 		while(rs.next()){
 			//rs객체의 레코드가 없을때까지 반복
 			logger.debug(rs.getString("deptno")+" "+rs.getString("dname")+
 					" "+rs.getString("loc"));
 		}
+		stmt = null; //메모리 반환
+		rs = null; //메모리 반환
 		connection = null; //메모리 초기화
 	}
 		
