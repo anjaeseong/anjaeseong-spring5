@@ -13,6 +13,7 @@ import javax.sql.DataSource;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -24,7 +25,7 @@ import com.edu.vo.PageVO;
 /**
  * 이 클래스는 오라클과 연동해서 CRUD를 테스트하는 클래스 입니다.
  * 과장(이사,팀장) JUnit CRUD까지 만들어서 일반사원에게 공개 + 회원관리
- * @author 김일국
+ * @author 안재성
  *
  */
 //RunWith인터페이스 현재클래스가 Junit실행클래스라고 명시
@@ -41,6 +42,59 @@ public class DataSourceTest {
 	//Inject 자바8부터 지원, 그럼, 이전 자바7에서 @Autowired 로 객체를 만들었슴
 	@Inject //MemberService서비스를 주입받아서 객체를 사용합니다.(아래)
 	private IF_MemberService memberService;
+	
+	@Test
+	public void updateMember() throws Exception {
+		//이 메서드는 회원정보를 수정(1개 레코드) .jsp 에서 사용예정
+		MemberVO memberVO = new MemberVO();
+		memberVO.setEmail("admin@test.com");
+		memberVO.setEnabled(true);
+		memberVO.setLevels("ROLE_ADMIN");
+		memberVO.setPoint(100);
+		memberVO.setUser_name("최고관리자");
+		memberVO.setUser_pw(""); //입력하지않으면 업데이트에서 제외
+		//메서드내 적용된 객체변수 생성
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		//스프링5 시큐리티 암호화 적용로직(아래)
+		if((memberVO.getUser_pw()).length() < 0) {
+			String userPwEncoder = passwordEncoder.encode(memberVO.getUser_pw());
+			memberVO.setUser_pw(userPwEncoder);//암호화된 해시 데이터가 memberVO객체 임시저장됨
+		}
+		memberVO.setUser_id("admin");//수정 조회조건에 사용
+		memberService.updateMember(memberVO);
+		//============ 여기까지는 jsp에서 1명의 회원만 업데이트 수정할때 사용하는 로직
+		//============ 이후부터는 모든회원중의 시큐리티암호화가 되지않는 사용자만 암호만 업데이트 하는로직
+		//아래 수정call호출을 회원수만큼 반목을 해야 합니다(아래)
+		PageVO pageVO = new PageVO();
+		pageVO.setPage(1);//기본값으로 1페이지를 입력합니다
+		pageVO.setPerPageNum(10); //UI하단사용 페이지 개수
+		pageVO.setQueryPerPageNum(1000); //쿼리사용 페이지당 개수
+		//MemberVO타입을 가진 리스트형 객
+		List<MemberVO> listMember = memberService.selectMember(pageVO);
+		//향상된 for반목문(memberOne:listMember) {구현내용}
+		for(MemberVO memberOne:listMember) { //listMember객체 비워질때까지 반복
+	
+			//혹시 여러번 실행시켜서 중복암호화 시킬수 있으므로 제외조건을 추가(아래)
+			String rawPassword = memberOne.getUser_pw();
+			if(rawPassword.length() < 50) { //원시 암호데이터 길이가 50보다 작을때만 암호화로직 진입
+				//memberOne객체(1개의레코드)의 암호를 뽑아서 시큐리티로 암호화 시킨후 onePwEncoder변수입력
+				String onePwEncoder = passwordEncoder.encode(rawPassword);
+				memberOne.setUser_pw(onePwEncoder);
+				memberService.updateMember(memberOne); //1명(admin만) 수정 -> 모든회원을 업데이트
+			}
+		}
+		selectMember();
+	}
+	
+	@Test
+	public void readMember() throws Exception {
+		//이 메서드는 회원 상세보기(1개 레코드) jsp에 사용될 예정
+		MemberVO memberVO = new MemberVO();
+		//100명중 1명을 보려면, 고유키(기본키,주키,PK)필요 = user_id
+		//String user_id = "admin";
+		memberVO.setUser_id("admin");
+		memberVO = memberService.readMember(memberVO.getUser_id());
+	}
 	
 	@Test
 	public void deleteMember() throws Exception {
@@ -74,10 +128,12 @@ public class DataSourceTest {
 		
 		pageVO.setPage(1);//기본값으로 1페이지를 입력합니다
 		pageVO.setPerPageNum(10); //UI하단사용 페이지 개수
-		pageVO.setQueryPerPageNum(10); //쿼리사용 페이지당 개수
-		pageVO.setTotalCount(memberService.countMember());//테스트하려고 100명을 입력합니다
+		pageVO.setQueryPerPageNum(1000); //쿼리사용 페이지당 개수
+		//pageVO.setTotalCount(memberService.countMember(pageVO));//테스트하려고 100명을 입력합니다
+		/* 모든사용자를 출력하지 않고 일부 사용자만 출력할때 아래 2줄필요
 		pageVO.setSearch_type("user_id"); //검색타입all, user_id, user_name
 		pageVO.setSearch_keyword("user_del"); //검색어
+		*/
 		//위 setTotalCount위치가 다른성정보다 상단이면 에러발생 왜냐하면 calcPage()가 실행되는데 실행시 위 3가지 변수값이 
 		//저장되 있어야지 계산메서드가 정상작동되기 때문입니다
 		//위토탈카운트 변수값은 startPage, endPage계산에 필수입니다
