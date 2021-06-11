@@ -6,9 +6,9 @@ SELECT TableB.* FROM
     (
         SELECT * FROM tbl_member
         WHERE user_id LIKE '%admin%'
-        OR user_name LIKE '%사용자8%'
+        OR user_name LIKE '%사용자%'
         ORDER BY reg_date DESC
-    ) TableA WHERE ROWNUM <= (0*5)+ 5
+    ) TableA WHERE ROWNUM <= (0*5)+ 5 --0부터 선택한  
 ) TableB WHERE TableB.RNUM > 0*5
 --페이징쿼리에서 필요한 변수는 2개
 --현재페이지수의 변수 page*b == queryStartNo
