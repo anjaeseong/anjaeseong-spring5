@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ include file="../include/header.jsp" %>
 
 <!-- Content Wrapper. Contains page content -->
@@ -55,7 +55,7 @@
           <!-- /.card-header -->
           <div class="card-body table-responsive p-0">
             <table class="table table-hover">
-              <!-- 줄바꿈안할때 다음 클래스추가 text-nowrap  -->
+              <!-- 줄바꿈않할때 다음 클래스추가 text-nowrap  -->
               <thead>
                 <tr>
                   <th class="text-center">사용자ID</th>
@@ -66,21 +66,20 @@
                 </tr>
               </thead>
               <tbody>
-              <!-- listMember객체 검색 빈 값일때 -->
-              <c:if test="${empty listMember}">
-              <tr>
-              		<td colspan="5" class="text-center">조회된 값이 없습니다</td>
-        	  </tr>
-              </c:if>
-                <!--  jspl반복문으로 listMember객체 바인딩 -->
-                <c:forEach  var="memberVO" items="${listMember}">
-                 <tr style="cursor: pointer;" onclick="location.replace('/admin/member/member_view?page=${pageVO.page}&search_type=${pageVO.search_type}&search_keyword=${pageVO.search_keyword}&user_id=${memberVO.user_id}');">
-                 user_id=${memberVO.user_id}');">
+              	<!-- listMember객체 검색 빈 값 일때 -->
+              	<c:if test="${empty listMember}">
+              	<tr>
+              		<td colspan="5" class="text-center">조회된 값이 없습니다.</td>
+              	</tr>
+              	</c:if>
+                <!-- jstl반복문으로 listMember객체 바인딩 -->
+                <c:forEach var="memberVO" items="${listMember}">
+                <tr style="cursor: pointer;" onclick="location.replace('/admin/member/member_view?page=${pageVO.page}&search_type=${pageVO.search_type}&search_keyword=${pageVO.search_keyword}&user_id=${memberVO.user_id}');">
                   <td><c:out value="${memberVO.user_id}" /></td>
                   <td><c:out value="${memberVO.user_name}" /></td>
-                  <td><c:out value="${memberVO.email}" /> </td>
+                  <td><c:out value="${memberVO.email}" /></td>
                   <td>${memberVO.levels}</td>
-                  <td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss.SSSS" value="${memberVO.reg_date}"/></td>                
+                  <td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss.SSSS" value="${memberVO.reg_date}"/></td>
                 </tr>
                 </c:forEach>
               </tbody>
@@ -94,18 +93,19 @@
           <a href="/admin/member/member_insert" class="btn btn-primary mb-3">회원등록</a>
           
           <ul class="pagination justify-content-center">
-          	 
-              <li class="paginate_button page-item previous <c:out value="${pageVO.prev==false?'disabled':'' }" />"  id="example2_previous" >
+          	  
+              <li class="paginate_button page-item previous <c:out value="${pageVO.prev==false?'disabled':'' }" />" id="example2_previous">
                 <a href="/admin/member/member_list?page=${pageVO.startPage-1}&search_keyword=${pageVO.search_keyword}&search_type=${pageVO.search_type}" aria-controls="example2" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
               </li>
+              
               <c:forEach begin="${pageVO.startPage}" end="${pageVO.endPage}" step="1" var="idx">
-              	  
+	              
 	              <li class="paginate_button page-item <c:out value="${idx==pageVO.page?'active':''}" />">
 	                <a href="/admin/member/member_list?page=${idx}&search_keyword=${pageVO.search_keyword}&search_type=${pageVO.search_type}" aria-controls="example2" data-dt-idx="1" tabindex="0" class="page-link">${idx}</a>
-	              </li>
+	              </li> 
               </c:forEach>
-              
-              <li class="paginate_button page-item next" <c:out value="${pageVO.next==false?'disabled':'' }" /> id="example2_next" >
+                            
+              <li class="paginate_button page-item next <c:out value="${pageVO.next==false?'disabled':'' }" />" id="example2_next">
                 <a href="/admin/member/member_list?page=${pageVO.endPage+1}&search_keyword=${pageVO.search_keyword}&search_type=${pageVO.search_type}" aria-controls="example2" data-dt-idx="7" tabindex="0" class="page-link">Next</a>
               </li>
           </ul>
@@ -115,6 +115,6 @@
     </section>
     <!-- /.content -->
   </div>
-  <!-- /.content-wrapper -->
+<!-- /.content-wrapper -->
 
 <%@ include file="../include/footer.jsp" %>
