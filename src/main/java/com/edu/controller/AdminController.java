@@ -41,7 +41,7 @@ public class AdminController {
 	//왜 board_type하지않고 bbs_type하는 이유는 왼쪽메뉴 고정시키는 로직에서 경로 board와 겹치지 않도록
 	@RequestMapping(value="/admin/bbs_type/bbs_type_list", method=RequestMethod.GET)
 	public String selectBoardTypeList(Model model) throws Exception { //목록폼
-		model.addAttribute("listBoardTypeVO", boardTypeService.selectBoardType());
+		//model.addAttribute("listBoardTypeVO", boardTypeService.selectBoardType());
 		return "admin/bbs_type/bbs_type_list"; //상대경로일때는 views폴더가 root(최상위)
 	}
 	//bbs_type_list.jsp에서 게시판 생성버튼을 클릭했을때 이동하는 폼 경로
@@ -70,7 +70,7 @@ public class AdminController {
 	@RequestMapping(value="/admin/bbs_type/bbs_type_delete", method=RequestMethod.POST)
 	public String deleteBoardType(@RequestParam("board_type")String board_type) throws Exception { //삭제처리1
 		boardTypeService.deleteBoardType(board_type); //삭제서비스 호출(실행) 끝
-		return "redirect/admin/bbs_type/bbs_type_list"; //.jsp생략
+		return "redirect:/admin/bbs_type/bbs_type_list"; //.jsp생략
 	}
 	//===========================================================
 	//아래 경로는 회원신규등록 폼을 호출하는 URL쿼리스트링으로 보낸것을 받을때는 GET방식으로 받습니다.
