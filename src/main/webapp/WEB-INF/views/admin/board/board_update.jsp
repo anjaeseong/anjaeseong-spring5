@@ -9,7 +9,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">${boardVO.board_type} 글쓰기</h1>
+            <h1 class="m-0">${boardVO.board_type} 글수정</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -28,7 +28,7 @@
         <!-- 콘텐츠 내용 -->
         <div class="card card-primary">
           <div class="card-header">
-            <h3 class="card-title">등록</h3>
+            <h3 class="card-title">수정</h3>
           </div>
           <!-- /.card-header -->
           <!-- form start -->
@@ -50,7 +50,7 @@
               </div>
               <div class="form-group">
                 <label for="content">글내용</label>
-                <textarea name="content" id="content" class="form-control" placeholder="내용을 입력해주세요." required>${boardVO.content}</textarea>
+                <textarea name="content" id="content" class="form-control" placeholder="내용을 입력해주세요.">${boardVO.content}</textarea>
               </div>
               <div class="form-group">
                 <label for="writer">작성자</label>
@@ -103,6 +103,30 @@
   <!-- /.content-wrapper -->
 
 <%@ include file="../include/footer.jsp" %>
+<!-- 첨부파일 개별삭제 -->
+<script>
+$(document).ready(function(){
+	$('.btn_file_delete').click(function(){
+		if(confirm("선택한 첨부파일을 삭제 하시겠습니까?")) {
+			var click_element = $(this);//현재 클릭한 버튼을 변수로 처리.
+			var save_file_name = click_element.parent().find('input[name=save_file_name]').val();
+			$.ajax({
+				type:'post',
+				url:'/file_delete?save_file_name='+save_file_name,//컨트롤러구현
+				dataType:"text",//반환받는 데이터 형식
+				success:function(result) {
+					if(result=="success") {
+						click_element.parents(".div_file_delete").remove();
+					}
+				},
+				error:function() {
+					alert("RestApi서버가 작동하지 않습니다. 잠시후에 이용해 주세요");
+				}
+			});
+		}		
+	});
+});
+</script>
 <!-- 첨부파일명을 input태그디자인 안쪽에 집어넣는 확장프로그램 -->
 <script src="/resources/admin/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 <!-- 위 첨부파일 확장프로그램 실행(아래-개발자가 처리) -->
@@ -133,6 +157,13 @@
 			fontNames: ['Arial','Arial Black','맑은 고딕','궁서','Nanum Gothic'],
 			fontSizes: ['8','10','12','14','16','18','20','22','24','26','28','30'],
 			fontNamesIgnoreCheck: ['Nanum Gothic']
+		});
+		//서머노트에서 html5의 required 속성 작동이 않되기 때문에 아래코드 추가
+		$("form[name='form_write']").on('submit',function(event){
+			if($('#content').summernote('isEmpty')){
+				alert('내용은 반드시 입력해 주세요');
+				event.preventDefault();//submit전송기능 사용금지.
+			}
 		});
 	});
 </script>
