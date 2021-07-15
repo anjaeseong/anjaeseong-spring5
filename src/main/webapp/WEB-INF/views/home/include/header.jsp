@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -40,6 +41,10 @@
 if("${msg}" != "") {
 	alert("${msg} 가(이) 성공하였습니다.");
 }
+//공통으로 사용하는 에러메시지 변수:
+if("${msgError}" != "") {
+	alert("${msgError}");
+}
 </script>
 
 </head>
@@ -67,7 +72,9 @@ if("${msg}" != "") {
 						<!-- 로그인 후 보이는 메뉴(아래) -->
 						<li><a href="#">${session_username} 님 환영합니다.</a></li>
 						<li><a href="/logout">로그아웃</a></li>
+						<c:if test="${session_login_type ne 'sns'}">
 						<li><a href="/member/mypage_form">마이페이지</a></li>
+						</c:if>						
 						<!-- ROLE_ADMIN 권한만 AdminLTE에 가능하게 조건추가 -->
 						<c:if test="${session_levels eq 'ROLE_ADMIN'}">
 							<li><a href="/admin">AdminLTE</a></li>
@@ -81,19 +88,20 @@ if("${msg}" != "") {
 				</ul>	
 				<nav>
 				<ul class="gnb clear">
-					<li><a href="board_list.html" class="openAll1">샘플홈페이지</a>
+					<li><a href="/resources/home/index.html" target="_blank" class="openAll1">샘플홈페이지</a>
 
                         <div class="gnb_depth gnb_depth2_1">
                             <ul class="submenu_list">
-                                <li><a href="board_list.html">반응형홈페이지</a></li>
+                                <li><a href="/resources/home/index.html" target="_blank">반응형홈페이지</a></li>
                             </ul>
                         </div>
 					</li>
-					<li><a href="board_list.html" class="openAll2">커뮤니티</a>
+					<li><a href="/home/board/board_list?board_type=notice&search_keyword=" class="openAll2">커뮤니티</a>
 				        <div class="gnb_depth gnb_depth2_2">
                             <ul class="submenu_list">
-                                <li><a href="board_list.html">공지사항</a></li>
-                                <li><a href="board_list.html">겔러리게시판</a></li>
+                            	<c:forEach var="boardTypeVO" items="${listBoardTypeVO}">
+	                            	<li><a href="/home/board/board_list?board_type=${boardTypeVO.board_type}&search_keyword=">${boardTypeVO.board_name}</a></li>
+                            	</c:forEach>
                             </ul>
                         </div>
 					</li>

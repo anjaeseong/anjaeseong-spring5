@@ -14,7 +14,7 @@ import com.edu.vo.ReplyVO;
 
 /**
  * 이클래스는 sqlSession템플릿을 이용해서 쿼리를 실행하는 클래스입니다.
- * @author 안재성
+ * @author 김일국
  *
  */
 @Repository
@@ -69,6 +69,7 @@ public class ReplyDAOImpl implements IF_ReplyDAO{
 		paramMap.put("queryStartNo", pageVO.getQueryStartNo());
 		paramMap.put("queryPerPageNum", pageVO.getQueryPerPageNum());
 		paramMap.put("bno", bno);
+		//paramMap = ["pageVO",{"queryStartNo":"값","queryPerPageNum":"값"}]
 		return sqlSession.selectList("replyMapper.selectReply", paramMap);
 	}
 

@@ -15,7 +15,7 @@ import com.edu.vo.PageVO;
 
 /**
  * 이 클래스는 게시물 CRUD를 구현하는 DAO클래스 입니다.
- * @author 안재성
+ * @author 김일국
  *
  */
 @Repository

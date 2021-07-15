@@ -328,6 +328,7 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+  
   <footer class="main-footer">
     <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
     All rights reserved.
@@ -350,29 +351,28 @@
 <!-- 모달창(초기엔 숨긴상태-수정버튼을 클릭하면 나타나는 창) -->
 <div class="modal fade" id="modal-reply">
 	<div class="modal-dialog">
-	  <div class="modal-content">
+		<div class="modal-content">
 		<div class="modal-header">
-		  <h4 class="modal-title">작성자명</h4>
-		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<h4 class="modal-title">작성자명</h4>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 			<span aria-hidden="true">&times;</span>
-		  </button>
+			</button>
 		</div>
 		<div class="modal-body">
-		  <input class="form-control" type="text" name="modal_reply_text" id="modal_reply_text" value="댓글내용 출력">
+			<input class="form-control" type="text" name="modal_reply_text" id="modal_reply_text" value="댓글내용 출력">
 		</div>
-		<div class="modal-footer"> 
-			<!-- justify-content-between 양쪽배분정렬 -->
-		  <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-		  <button type="button" class="btn btn-primary">수정</button>
-		  <button type="button" class="btn btn-danger">삭제</button>
-		  <input type="hidden" id="rno" name="rno">
+		<div class="modal-footer"><!-- justify-content-between:양쪽배분정렬 -->
+			<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+			<button type="button" class="btn btn-primary">수정</button>
+			<button type="button" class="btn btn-danger">삭제</button>
+			<input type="hidden" id="rno" name="rno">
 		</div>
-	  </div>
-	  <!-- /.modal-content -->
+		</div>
+		<!-- /.modal-content -->
 	</div>
-	<!-- /.modal-dialog -->
-  </div>
-  <!-- /.modal -->
+<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 <!-- jQuery 제이쿼리 코어 -->
 <script src="plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 제이쿼리 UI코어 -->
@@ -465,13 +465,13 @@ $(document).ready(function(){
 });
 </script>
 <script>
-	//댓글 리스트에서 수정 버튼클릭시 현재 선택한 값을 모달창에 보여주는것을 구현(아래)
+// 댓글 리스트에서 수정 버튼클릭시 현재 선택한 값을 모달창에 보여주는 것을 구현(아래)
 $(document).ready(function(){
-	$('.timeline').on("click", '.div_template',function(){
-		$('#rno').val($(this).attr('data-rno'));
-		$('#modal_reply_text').val($(this).find('.timeline-body').text());
-		$('.#modal-title').html($(this).find('.timeline-header').text());
-	});
+  $('.timeline').on("click", '.div_template',function(){
+    $('#rno').val($(this).attr('data-rno'));
+    $('#modal_reply_text').val($(this).find('.timeline-body').text());
+    $('.modal-title').html($(this).find('.timeline-header').text());
+  });
 });
 </script>
 </body>
